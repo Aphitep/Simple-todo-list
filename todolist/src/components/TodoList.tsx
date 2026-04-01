@@ -1,16 +1,34 @@
-const todos = ["Eat breakfast", "Go to work", "Go to sleep"];
-export default function TodoList() {
+import type { Todo } from "../App";
+
+export default function TodoList({ todos }: { todos: Todo[] }) {
+  const getTodoList = (todos: Todo[]) =>
+    todos.map((todo, index) => {
+      if (todo.status === "done") {
+        return (
+          <li className="list-row flex justify-between" key={index}>
+            <div className="line-through">{todo.todo}</div>
+            <div>
+              <button className="btn btn-xs btn-soft" disabled>
+                Completed
+              </button>
+            </div>
+          </li>
+        );
+      } else {
+        return (
+          <li className="list-row flex justify-between" key={index}>
+            <div>{todo.todo}</div>
+            <div>
+              <button className="btn btn-xs btn-outline">Complete</button>
+            </div>
+          </li>
+        );
+      }
+    });
+
   return (
     <ul className="list bg-[#FFFBF1] rounded-sm shadow-md mt-2">
-      {todos.map((todo, index) => {
-        return (
-          <>
-            <li className="list-row" key={index}>
-              <div>{todo}</div>
-            </li>
-          </>
-        );
-      })}
+      {getTodoList(todos)}
     </ul>
   );
 }
