@@ -1,20 +1,46 @@
+import { useState } from "react";
 import "./App.css";
 import TodoList from "./components/TodoList";
 
 type status = "pending" | "done";
 export interface Todo {
+  id: number;
   todo: string;
   status: status;
 }
 const todos: Todo[] = [
-  { todo: "Go to work", status: "done" },
-  { todo: "Go to sleep", status: "pending" },
-  { todo: "Go to gym", status: "pending" },
+  { id: 1, todo: "Go to work", status: "done" },
+  { id: 2, todo: "Go to sleep", status: "pending" },
+  { id: 3, todo: "Go to gym", status: "pending" },
 ];
 function App() {
+  const [NewTodo, setNewTodo] = useState("");
+
+  const addTodo = () => {
+    const todoID = todos.length + 1;
+    if (NewTodo) {
+      todos.push({ id: todoID, todo: NewTodo, status: "pending" });
+      setNewTodo("");
+    }
+    throw new Error("Todo cannot be empty");
+  };
   return (
     <div className="bg-[#FFEABB] shadow-lg rounded-xl p-5 w-300 mt-5">
       <p className="text-center text-xl font-bold">Todo List</p>
+      <div className="text-center">
+        <div className="join">
+          <input
+            type="text"
+            className="input join-item"
+            placeholder="Add a todo"
+            onChange={(e) => setNewTodo(e.target.value)}
+          />
+          <button className="btn join-item" onClick={addTodo}>
+            Add
+          </button>
+        </div>
+      </div>
+
       <TodoList todos={todos} />
     </div>
   );

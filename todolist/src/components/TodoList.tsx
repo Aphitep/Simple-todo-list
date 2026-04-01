@@ -2,10 +2,10 @@ import type { Todo } from "../App";
 
 export default function TodoList({ todos }: { todos: Todo[] }) {
   const getTodoList = (todos: Todo[]) =>
-    todos.map((todo, index) => {
+    todos.map((todo) => {
       if (todo.status === "done") {
         return (
-          <li className="list-row flex justify-between" key={index}>
+          <li className="list-row flex justify-between" key={todo.id}>
             <div className="line-through">{todo.todo}</div>
             <div>
               <button className="btn btn-xs btn-soft" disabled>
@@ -16,7 +16,7 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
         );
       } else {
         return (
-          <li className="list-row flex justify-between" key={index}>
+          <li className="list-row flex justify-between" key={todo.id}>
             <div>{todo.todo}</div>
             <div>
               <button className="btn btn-xs btn-outline">Complete</button>
