@@ -1,29 +1,30 @@
 import type { Todo } from "../App";
 
-export default function TodoList({ todos }: { todos: Todo[] }) {
+interface TodoListProps {
+  todos: Todo[];
+  handleComplete: (id: number) => void;
+}
+
+export default function TodoList({ todos, handleComplete }: TodoListProps) {
   const getTodoList = (todos: Todo[]) =>
     todos.map((todo) => {
-      if (todo.status === "done") {
-        return (
-          <li className="list-row flex justify-between" key={todo.id}>
-            <div className="line-through">{todo.todo}</div>
-            <div>
-              <button className="btn btn-xs btn-soft" disabled>
-                Completed
-              </button>
-            </div>
-          </li>
-        );
-      } else {
-        return (
-          <li className="list-row flex justify-between" key={todo.id}>
-            <div>{todo.todo}</div>
-            <div>
-              <button className="btn btn-xs btn-outline">Complete</button>
-            </div>
-          </li>
-        );
-      }
+      return (
+        <li className="list-row flex justify-between" key={todo.id}>
+          <div className={todo.status === "done" ? "line-through" : ""}>
+            {todo.todo}
+          </div>
+
+          <div>
+            <button
+              className={`btn btn-xs ${todo.status === "done" ? "btn-soft" : "btn-outline"}`}
+              onClick={() => handleComplete(todo.id)}
+              disabled={todo.status === "done"}
+            >
+              {todo.status === "done" ? "Completed" : "Complete"}
+            </button>
+          </div>
+        </li>
+      );
     });
 
   return (

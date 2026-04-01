@@ -14,6 +14,7 @@ const todos: Todo[] = [
   { id: 3, todo: "Go to gym", status: "pending" },
 ];
 function App() {
+  const [todoList, setTodolist] = useState(todos);
   const [NewTodo, setNewTodo] = useState("");
 
   const addTodo = () => {
@@ -24,6 +25,14 @@ function App() {
       throw new Error("Todo cannot be empty");
     }
     setNewTodo("");
+  };
+
+  const handleComplete = (id: number) => {
+    setTodolist(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, status: "done" } : todo,
+      ),
+    );
   };
   return (
     <div className="bg-[#FFEABB] shadow-lg rounded-xl p-5 w-300 mt-5">
@@ -43,7 +52,7 @@ function App() {
         </div>
       </div>
 
-      <TodoList todos={todos} />
+      <TodoList todos={todoList} handleComplete={handleComplete} />
     </div>
   );
 }
