@@ -14,13 +14,16 @@ const todos: Todo[] = [
   { id: 3, todo: "Go to gym", status: "pending" },
 ];
 function App() {
-  const [todoList, setTodolist] = useState(todos);
+  const [todoList, setTodolist] = useState<Todo[]>(todos);
   const [NewTodo, setNewTodo] = useState("");
 
   const addTodo = () => {
     const todoID = todos.length + 1;
     if (NewTodo) {
-      todos.push({ id: todoID, todo: NewTodo, status: "pending" });
+      setTodolist([
+        ...todoList,
+        { id: todoID, todo: NewTodo, status: "pending" },
+      ]);
     } else {
       throw new Error("Todo cannot be empty");
     }
@@ -28,11 +31,13 @@ function App() {
   };
 
   const handleComplete = (id: number) => {
-    setTodolist(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, status: "done" } : todo,
-      ),
-    );
+    const updatedTodoList: Todo[] = todoList.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, status: "done" };
+      }
+      return todo;
+    });
+    setTodolist(updatedTodoList);
   };
   return (
     <div className="bg-[#FFEABB] shadow-lg rounded-xl p-5 w-300 mt-5">
