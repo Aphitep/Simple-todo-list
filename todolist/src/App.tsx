@@ -20,9 +20,10 @@ function App() {
     const todoID = todos.length + 1;
     if (NewTodo) {
       todos.push({ id: todoID, todo: NewTodo, status: "pending" });
-      setNewTodo("");
+    } else {
+      throw new Error("Todo cannot be empty");
     }
-    throw new Error("Todo cannot be empty");
+    setNewTodo("");
   };
   return (
     <div className="bg-[#FFEABB] shadow-lg rounded-xl p-5 w-300 mt-5">
@@ -34,6 +35,7 @@ function App() {
             className="input join-item"
             placeholder="Add a todo"
             onChange={(e) => setNewTodo(e.target.value)}
+            value={NewTodo}
           />
           <button className="btn join-item" onClick={addTodo}>
             Add
