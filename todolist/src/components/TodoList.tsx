@@ -4,9 +4,11 @@ export default function TodoList() {
     <ul className="list bg-[#FFFBF1] rounded-sm shadow-md mt-2">
       {todos.map((todo, index) => {
         return (
-          <li className="list-row" key={index}>
-            <div>{todo}</div>
-          </li>
+          <>
+            <li className="list-row" key={index}>
+              <div>{todo}</div>
+            </li>
+          </>
         );
       })}
     </ul>

@@ -1,17 +1,4 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: false;
-}
-@theme {
-  --background-color: #fffbf1;
-  --font-color: #e36a6a;
-}
-
-body {
-  background-color: var(--background-color);
-  color: var(--font-color);
-}
-
-.container {
-  background-color: #f9d0cd;
+  themes: all;
 }
